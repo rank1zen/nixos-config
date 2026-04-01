@@ -3,20 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    niri-flake = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , niri-flake
-    , ...
-    } @ inputs:
+    {
+      self,
+      nixpkgs,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
     in

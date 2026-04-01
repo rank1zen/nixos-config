@@ -1,14 +1,7 @@
-{ inputs,
-  config,
-  pkgs,
-  ...
-}: {
+{ pkgs, ... }:
+{
   imports = [
     ./hardware-configuration.nix
-  ];
-
-  nixpkgs.overlays = [
-    inputs.niri-flake.overlays.niri
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -89,13 +82,20 @@
 
   programs.niri = {
     enable = true;
-    package = pkgs.niri-unstable;
   };
+
+  nix.settings.trusted-users = [
+    "root"
+    "gordo"
+  ];
 
   environment.variables.NIXOS_OZONE_WL = "1";
 
   programs.dconf.enable = true;
 
   system.stateVersion = "24.05";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }
