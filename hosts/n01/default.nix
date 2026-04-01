@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
     ./hardware-configuration.nix
+
+    ../../modules/common.nix
+    ../../modules/desktop.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -22,8 +25,6 @@
     layout = "us";
     variant = "";
   };
-
-  services.displayManager.ly.enable = true;
 
   users.users = {
     gordo = {
@@ -54,34 +55,9 @@
   services.gvfs.enable = true;
 
   environment = {
-    systemPackages = with pkgs; [
-      vim
-      wget
-      git
-      wl-clipboard
-      epiphany
-      nautilus
-      gnome-text-editor
-      gnome-disk-utility
-    ];
     sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
     };
-  };
-
-  fonts = {
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
-      roboto
-      adwaita-fonts
-      cherry
-    ];
-  };
-
-  programs.niri = {
-    enable = true;
   };
 
   nix.settings.trusted-users = [
@@ -92,10 +68,4 @@
   environment.variables.NIXOS_OZONE_WL = "1";
 
   programs.dconf.enable = true;
-
-  system.stateVersion = "24.05";
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 }

@@ -22,9 +22,7 @@
         specialArgs = {
           inherit inputs outputs;
         };
-        modules = [
-          ./hosts/n01/configuration.nix
-        ];
+        modules = [ ./hosts/n01 ];
       };
     };
 }
